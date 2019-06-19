@@ -13,5 +13,7 @@ resource "aws_dynamodb_table" "dynamodb-table-test1" {
     type = "S"
   }
 
-  tags {}
+  tags = {
+    TestTag = "TestVal"
+  }
 }
