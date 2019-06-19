@@ -20,7 +20,7 @@ action "terraform-fmt" {
 action "terraform-init" {
   uses = "hashicorp/terraform-github-actions/init@v0.3.1"
   needs = "terraform-fmt"
-  secrets = ["GITHUB_TOKEN"]
+  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID"]
   env = {
     TF_ACTION_WORKING_DIR = "."
   }
