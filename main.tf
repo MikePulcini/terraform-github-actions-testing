@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_dynamodb_table" "dynamodb-table-test2" {
-  name           = "TestABC"
+  name           = "TestABCD"
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "TweetId"
