@@ -23,6 +23,7 @@ action "terraform-init" {
   secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
+    TF_ACTION_TFE_HOSTNAME = "app.terraform.io"
   }
 }
 
@@ -43,6 +44,7 @@ action "terraform-plan" {
     TF_ACTION_WORKING_DIR = "."
     # If you're using Terraform workspaces, set this to the workspace name.
     TF_ACTION_WORKSPACE = "default"
+    TF_ACTION_TFE_HOSTNAME = "app.terraform.io"
   }
 }
 
@@ -65,6 +67,7 @@ action "terraform-init-apply" {
   secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
+    TF_ACTION_TFE_HOSTNAME = "app.terraform.io"
   }
 }
 
@@ -76,5 +79,6 @@ action "terraform-apply" {
   env = {
     TF_ACTION_WORKING_DIR = "."
     TF_ACTION_WORKSPACE = "default"
+    TF_ACTION_TFE_HOSTNAME = "app.terraform.io"
   }
 }
