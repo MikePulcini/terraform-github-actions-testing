@@ -20,7 +20,7 @@ action "terraform-fmt" {
 action "terraform-init" {
   uses = "hashicorp/terraform-github-actions/init@v0.3.1"
   needs = "terraform-fmt"
-  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
   }
@@ -38,7 +38,7 @@ action "terraform-validate" {
 action "terraform-plan" {
   uses = "hashicorp/terraform-github-actions/plan@v0.3.1"
   needs = "terraform-validate"
-  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
     # If you're using Terraform workspaces, set this to the workspace name.
@@ -62,7 +62,7 @@ action "master-branch-filter" {
 action "terraform-init-apply" {
   uses = "hashicorp/terraform-github-actions/init@v0.3.1"
   needs = "master-branch-filter"
-  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
   }
@@ -72,7 +72,7 @@ action "terraform-init-apply" {
 action "terraform-apply" {
   needs = "terraform-init-apply"
   uses = "hashicorp/terraform-github-actions/apply@v0.3.1"
-  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "TF_ACTION_TFE_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "."
     TF_ACTION_WORKSPACE = "default"
