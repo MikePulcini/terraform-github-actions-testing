@@ -46,32 +46,22 @@ action "terraform-plan" {
   }
 }
 
-
 workflow "Apply" {
   resolves = "terraform-apply"
-  # Here you can see we're reacting to the pull_request event.
-  on = "pull_request"
+  # Here you can see we're reacting to the push event.
+  on = "push"
 }
 
-# Filter to pull request merged events.
-action "merged-prs-filter" {
+# Filter to pushes to a specific branch. In this case, master.
+action "master-branch-filter" {
   uses = "actions/bin/filter@master"
-  args = "merged true"
-}
-
-# Additionally, filter to pull requests merged to master.
-action "base-branch-filter" {
-  uses = "hashicorp/terraform-github-actions/base-branch-filter@v<latest version>"
-  # If you want to run apply when merging into other branches,
-  # set this regex.
-  args = "^master$"
-  needs = "merged-prs-filter"
+  args = "branch master"
 }
 
 # init must be run before apply.
 action "terraform-init-apply" {
-  uses = "hashicorp/terraform-github-actions/init@v<latest version>"
-  needs = "base-branch-filter"
+  uses = "hashicorp/terraform-github-actions/init@v0.3.1"
+  needs = "master-branch-filter"
   secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
   env = {
     TF_ACTION_WORKING_DIR = "."
@@ -81,7 +71,7 @@ action "terraform-init-apply" {
 # Finally, run apply.
 action "terraform-apply" {
   needs = "terraform-init-apply"
-  uses = "hashicorp/terraform-github-actions/apply@v<latest version>"
+  uses = "hashicorp/terraform-github-actions/apply@v0.3.1"
   secrets = ["GITHUB_TOKEN", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
   env = {
     TF_ACTION_WORKING_DIR = "."
